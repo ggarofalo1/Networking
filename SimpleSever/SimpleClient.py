@@ -6,6 +6,7 @@ BUFF = 2048
 serverADD = (ADD, PORT)
 
 client_socket = socket(AF_INET, SOCK_DGRAM)
+client_socket.settimeout(30)
 
 while(1):
     message = input('Please type a message: ')
@@ -13,7 +14,13 @@ while(1):
 
     client_socket.sendto(message.encode(), serverADD)
     print('Message Sent')
+    try:
+        serverMessage = client_socket.recv(BUFF)
+        print('Message from Server: ' + serverMessage.decode())
+    except:
+        print('Server Did not respond..')
 
-    serverMessage = client_socket.recv(BUFF)
-    print('Message from Server: ' + serverMessage.decode())
-
+    quit = input("Would you like to quit(Y/N): ")
+    if quit.lower() == 'y':
+        print("Good Bye...")
+        exit()

@@ -1,7 +1,7 @@
 from socket import *
 
 def processData(somestring):
-    resultString = somestring
+    resultString = somestring.capitalize()
     return resultString
 
 PORT = 3300
@@ -24,4 +24,8 @@ while(1):
 
     serverSocket.sendto(outputMessage.encode(), clientAddress)
 
+    quit = input("Would you like to quit(Y/N): ")
+    if quit.lower() == 'y':
+        print("Good Bye...")
+        exit()
 
