@@ -1,5 +1,11 @@
 from socket import *
 
+'''
+Description: a Simple TCP client that responds to a message
+@Author: Galen Garofalo
+Date: 1/8/19
+'''
+
 PORT = 3300
 ADD = '127.0.0.1'
 BUFF = 2048

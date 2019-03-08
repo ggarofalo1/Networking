@@ -1,4 +1,10 @@
 from socket import *
+'''
+Description: a Simple TCP server that responds to a message
+@Author: Galen Garofalo
+Date: 1/8/19
+'''
+
 
 def processData(somestring):
     if somestring.lower() == 'hello' or somestring.lower() == 'hi':
