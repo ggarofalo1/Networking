@@ -1,7 +1,7 @@
 from socket import *
 
 '''
-Description: a Simple UDP server that responds to a message
+Description: a Simple UD2P server that responds to a message
 @Author: Galen Garofalo
 Date: 1/8/19
 '''
