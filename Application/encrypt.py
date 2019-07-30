@@ -4,6 +4,7 @@ Date: 7/24/19
 Description: A list of encryption/decryption tools
 '''
 
+
 def caesarshiften(key, plaintext):
     """
     :return ciphertext: Encrypted text for caesar shift
@@ -62,13 +63,17 @@ def caesarshiftbrute(ciphertext):
 
     results = ""
     # starts a key at 1 and goes to 120 incrementing by 1
-    for key in range(1, 140, 1):
+    for key in range(1, 120, 1):
         translated = ''
         for char in ciphertext:
             charnum = ord(char)  # gets the char from the cipher text
             charnum = charnum - key
-            if charnum < 11:  # if the char was modded  then restart the loop at 126, does not need chars under 30 for english
-                charnum += 126
+            check1 = True
+            while(check1):
+                if charnum < 11:  # if the char was modded then restart the loop at 126, does not need chars under 30 for english
+                    charnum += 116
+                else:
+                    check1 = False
             translated += chr(charnum)
 
         results += ('key #%s: %s\n======================\n' % (key, translated))
@@ -130,10 +135,12 @@ def monoalphabeticen(key, plaintext):
         ciphertable = dict1
     else:
         ciphertable = revdict1
-
+    letters = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
     for i in plaintext:
-        ciphertext += ciphertable[i]
-
+        if i in letters:
+            ciphertext += ciphertable[i]
+        else:
+            ciphertext += i
     return ciphertext
 
 
@@ -193,9 +200,12 @@ def monoalphabeticde(key, ciphertext):
         plaintable = revdict1
     else:
         plaintable = dict1
-
+    letters = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
     for i in ciphertext:
-        plaintext += plaintable[i]
+        if i in letters:
+            plaintext += plaintable[i]
+        else:
+            plaintext += i
 
     return plaintext
 
@@ -303,4 +313,46 @@ def streamcipheren(key, plaintext):
     ciphertext = ""
 
     return ciphertext
+
+def cipherchoiceen(cipher5, input1, key):
+        if cipher5 == 0:
+            print("Poly Encrypt")
+            key = "12345"
+            return polyalphabeticen(key, input1)
+        elif cipher5 == 1:
+            print("Caesar Encrypt")
+            return caesarshiften(key, input1)
+        elif cipher5 == 2:
+            print("Mono Encrypt")
+            return monoalphabeticen(key, input1)
+        elif cipher5 == 3:
+            print("Poly Encrypt")
+            return polyalphabeticen(key, input1)
+        elif cipher5 == 4:
+            print("Block Encrypt")
+            return input1
+        elif cipher5 == 5:
+            print("Stream Encrypt")
+            return input1
+
+def cipherchoicede(cipher5, input1, key):
+        if cipher5 == 0:
+            print("Poly Decrypt")
+            key = "12345"
+            return polyalphabeticde(key, input1)
+        elif cipher5 == 1:
+            print("Caesar Decrypt")
+            return caesarshiftde(key, input1)
+        elif cipher5 == 2:
+            print("Mono Decrypt")
+            return monoalphabeticde(key, input1)
+        elif cipher5 == 3:
+            print("Poly Decrypt")
+            return polyalphabeticde(key, input1)
+        elif cipher5 == 4:
+            print("Block Decrypt")
+            return input1
+        elif cipher5 == 5:
+            print("Stream Decrypt")
+            return input1
 

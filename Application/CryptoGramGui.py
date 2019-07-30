@@ -55,7 +55,7 @@ class MainFrame ( wx.Frame ):
 
 		page1sizer.Add( self.TitleName, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
-		ChooseCipherChoices = [ u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Caesar Cipher Decrypt", u"Monoalphabetic Encrypt", u"Monoalphabetic Decrypt", u"Polyalphabetic Encrypt", u"Polyalphabetic Decrypt", u"Block Cipher Encrypt", u"Block Cipher Decrypt", u"Stream Cipher Encrypt", u"Stream Cipher Decrypt", u"Caesar Brute Force" ]
+		ChooseCipherChoices = [ u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Caesar Cipher Decrypt", u"Monoalphabetic Encrypt", u"Monoalphabetic Decrypt", u"Polyalphabetic Encrypt", u"Polyalphabetic Decrypt", u"Block Cipher Encrypt", u"Block Cipher Decrypt", u"Stream Cipher Encrypt", u"Stream Cipher Decrypt", u"Caesar Brute Force", u"Custom Encrypt", u"Custom Decrypt" ]
 		self.ChooseCipher = wx.Choice( self.Main, wx.ID_ANY, wx.Point( 0,1 ), wx.DefaultSize, ChooseCipherChoices, 0 )
 		self.ChooseCipher.SetSelection( 0 )
 		page1sizer.Add( self.ChooseCipher, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
@@ -103,7 +103,7 @@ class MainFrame ( wx.Frame ):
 		fgSizer1.SetFlexibleDirection( wx.BOTH )
 		fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
-		self.checkboxtitle = wx.StaticText( self.Settings, wx.ID_ANY, u"Save to a text file:", wx.Point( 0,0 ), wx.Size( -1,-1 ), wx.ALIGN_CENTRE )
+		self.checkboxtitle = wx.StaticText( self.Settings, wx.ID_ANY, u"Save output to a text file:", wx.Point( 0,0 ), wx.Size( -1,-1 ), wx.ALIGN_CENTRE )
 		self.checkboxtitle.Wrap( -1 )
 		fgSizer1.Add( self.checkboxtitle, 0, wx.ALIGN_CENTER|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 10 )
 
@@ -123,6 +123,65 @@ class MainFrame ( wx.Frame ):
 		self.Settings.Layout()
 		fgSizer1.Fit( self.Settings )
 		self.NoteBook1.AddPage( self.Settings, u"Settings", False )
+		self.Custom = wx.ScrolledWindow( self.NoteBook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.Custom.SetScrollRate( 5, 5 )
+		fgSizer2 = wx.FlexGridSizer( 7, 2, 0, 0 )
+		fgSizer2.SetFlexibleDirection( wx.BOTH )
+		fgSizer2.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.titlecipher1 = wx.StaticText( self.Custom, wx.ID_ANY, u"Cipher 1:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.titlecipher1.Wrap( -1 )
+		fgSizer2.Add( self.titlecipher1, 0, wx.ALL, 10 )
+
+		cipher1Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt", u"Block Cipher Encrypt", u"Stream Cipher Encrypt"]
+		self.cipher1 = wx.Choice( self.Custom, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, cipher1Choices, 0 )
+		self.cipher1.SetSelection( 0 )
+		fgSizer2.Add( self.cipher1, 0, wx.ALL, 10 )
+
+		self.titlepass1 = wx.StaticText( self.Custom, wx.ID_ANY, u"Password 1:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.titlepass1.Wrap( -1 )
+		fgSizer2.Add( self.titlepass1, 0, wx.ALL, 10 )
+
+		self.pass1 = wx.TextCtrl( self.Custom, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PASSWORD)
+		fgSizer2.Add( self.pass1, 0, wx.ALL, 10 )
+
+		self.titlecipher2 = wx.StaticText( self.Custom, wx.ID_ANY, u"Cipher 2:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.titlecipher2.Wrap( -1 )
+		fgSizer2.Add( self.titlecipher2, 0, wx.ALL, 10 )
+
+		cipher2Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt", u"Block Cipher Encrypt", u"Stream Cipher Encrypt"]
+		self.cipher2 = wx.Choice( self.Custom, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, cipher2Choices, 0 )
+		self.cipher2.SetSelection( 0 )
+		fgSizer2.Add( self.cipher2, 0, wx.ALL, 10 )
+
+		self.titlepass2 = wx.StaticText( self.Custom, wx.ID_ANY, u"Password 2:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.titlepass2.Wrap( -1 )
+		fgSizer2.Add( self.titlepass2, 0, wx.ALL, 10 )
+
+		self.pass2 = wx.TextCtrl( self.Custom, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PASSWORD)
+		fgSizer2.Add( self.pass2, 0, wx.ALL, 10 )
+
+		self.titlecipher3 = wx.StaticText( self.Custom, wx.ID_ANY, u"Cipher 3:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.titlecipher3.Wrap( -1 )
+		fgSizer2.Add( self.titlecipher3, 0, wx.ALL, 10 )
+
+		cipher3Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt", u"Block Cipher Encrypt", u"Stream Cipher Encrypt"]
+		self.cipher3 = wx.Choice( self.Custom, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, cipher3Choices, 0 )
+		self.cipher3.SetSelection( 0 )
+		fgSizer2.Add( self.cipher3, 0, wx.ALL, 10 )
+
+		self.titlepass3 = wx.StaticText( self.Custom, wx.ID_ANY, u"Password 3:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.titlepass3.Wrap( -1 )
+		fgSizer2.Add( self.titlepass3, 0, wx.ALL, 10 )
+
+		self.pass3 = wx.TextCtrl( self.Custom, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_PASSWORD)
+		fgSizer2.Add( self.pass3, 0, wx.ALL, 10 )
+
+
+		self.Custom.SetSizer( fgSizer2 )
+		self.Custom.Layout()
+		fgSizer2.Fit( self.Custom )
+		self.NoteBook1.AddPage( self.Custom, u"Custom", False )
 
 		mainsizer.Add( self.NoteBook1, 1, wx.ALIGN_CENTER|wx.EXPAND, 5 )
 

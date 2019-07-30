@@ -5,13 +5,20 @@ Description: A gui for encryption
 Icon made by https://www.flaticon.com/authors/smashicons from www.flaticon.com
 '''
 
-from Application import encrypt as cryp
-from Application import CryptoGramGui
+# Run: pyinstaller --onefile --windowed myscript.py
+# pyinstaller --onefile --windowed --icon=src\img\locked.png --version-file=version.txt App.spec
+# For a Python -> .exe file
+# For installer might use NSIS or Inno Setup
+
+# from Application import encrypt as cryp
+# from Application import CryptoGramGui
+# when Running in edittor use ^ else use \/
+import encrypt as cryp
+import CryptoGramGui
+
 import wx
 import os
 import io
-import tkinter as tk
-
 
 '''
 A gui that uses wxPython to open a file and encrypt it or decrypt it using 
@@ -39,6 +46,7 @@ class AppGui(CryptoGramGui.MainFrame):
         self.input.SetValue(output1)
         self.output.SetValue("")
 
+
     def runCipher(self, event):
         # Run the chosen cipher on the input
         '''
@@ -49,6 +57,10 @@ class AppGui(CryptoGramGui.MainFrame):
         print("Run Cipher")
         cipher = self.ChooseCipher.GetSelection()
         key = self.password.GetValue()
+
+        if len(key) == 0:
+                key = "12345"
+
         input = self.input.GetValue()
         global save
 
@@ -138,16 +150,78 @@ class AppGui(CryptoGramGui.MainFrame):
                 file.write(output1)
                 file.close()
             self.output.SetValue(str(output1))
+        elif cipher == 12:
+            print("Custom Encrypt")
+            cipher1 = self.cipher1.GetSelection()
+            cipher2 = self.cipher2.GetSelection()
+            cipher3 = self.cipher3.GetSelection()
+
+            pass1 = self.pass1.GetValue()
+            pass2 = self.pass2.GetValue()
+            pass3 = self.pass3.GetValue()
+
+            if len(pass1) == 0:
+                pass1 = "12345"
+            if len(pass2) == 0:
+                pass2 = "12345"
+            if len(pass3) == 0:
+                pass3 = "12345"
+
+            output1 = cryp.cipherchoiceen(cipher1, input, pass1)
+            output2 = cryp.cipherchoiceen(cipher2, output1, pass2)
+            output3 = cryp.cipherchoiceen(cipher3, output2, pass3)
+
+            if(save):
+                filename = self.savetext.GetValue()
+                file = io.open("results/"+filename, "a+", encoding="utf-8")
+                file.write("\n======New Output======\n")
+                file.write("====Custom Encrypt====\n")
+                file.write(output3)
+                file.close()
+            self.output.SetValue(str(output3))
+
+        elif cipher == 13:
+            print("Custom Decrypt")
+            cipher1 = self.cipher1.GetSelection()
+            cipher2 = self.cipher2.GetSelection()
+            cipher3 = self.cipher3.GetSelection()
+
+            pass1 = self.pass1.GetValue()
+            pass2 = self.pass2.GetValue()
+            pass3 = self.pass3.GetValue()
+
+            if len(pass1) == 0:
+                pass1 = "12345"
+            if len(pass2) == 0:
+                pass2 = "12345"
+            if len(pass3) == 0:
+                pass3 = "12345"
+
+            output1 = cryp.cipherchoicede(cipher3, input, pass3)
+            output2 = cryp.cipherchoicede(cipher2, output1, pass2)
+            output3 = cryp.cipherchoicede(cipher1, output2, pass1)
+
+            if(save):
+                filename = self.savetext.GetValue()
+                file = io.open("results/"+filename, "a+", encoding="utf-8")
+                file.write("\n======New Output======\n")
+                file.write("====Custom Decrypt====\n")
+                file.write(output3)
+                file.close()
+            self.output.SetValue(str(output3))
+
         else:
             print("Invalid Choice")
 
 # setup the gui
 app = wx.App(False)
 frame = AppGui(None)
-frame.SetIcon(wx.Icon("locked.png"))
+#frame.SetIcon(wx.Icon("img/locked.png"))
 frame.Show(True)
 # start the applications
 app.MainLoop()
+input("Running, Type A Key To Exit: ")
+
 
 #################################
 #                               #
