@@ -23,20 +23,9 @@ class MainFrame ( wx.Frame ):
 
 		self.MainMenu = wx.MenuBar( 0 )
 		self.File = wx.Menu()
-		self.Open = wx.Menu()
-		self.File.AppendSubMenu( self.Open, u"Open" )
-
-		self.SaveInput = wx.Menu()
-		self.File.AppendSubMenu( self.SaveInput, u"Save Input" )
-
-		self.SaveOutput = wx.Menu()
-		self.File.AppendSubMenu( self.SaveOutput, u"Save Output" )
-
-		self.About = wx.Menu()
-		self.File.AppendSubMenu( self.About, u"About" )
-
-		self.Exit = wx.Menu()
-		self.File.AppendSubMenu( self.Exit, u"Exit" )
+		menuopen = self.File.Append( wx.ID_OPEN, u"Open" )
+		menuabout = self.File.Append(wx.ID_ABOUT, u"About" )
+		menuexit = self.File.Append( wx.ID_EXIT, u"Exit" )
 
 		self.MainMenu.Append( self.File, u"File" )
 
@@ -195,6 +184,9 @@ class MainFrame ( wx.Frame ):
 		self.run.Bind( wx.EVT_BUTTON, self.runCipher )
 		self.switch.Bind( wx.EVT_BUTTON, self.switchtext )
 		self.savecheck.Bind( wx.EVT_CHECKBOX, self.savefile )
+		self.Bind( wx.EVT_MENU, self.onopen, menuopen )
+		self.Bind( wx.EVT_MENU, self.onabout, menuabout )
+		self.Bind( wx.EVT_MENU, self.onexit, menuexit )
 
 	def __del__( self ):
 		pass
@@ -210,4 +202,11 @@ class MainFrame ( wx.Frame ):
 	def savefile( self, event ):
 		event.Skip()
 
+	def onopen( self, event ):
+		event.Skip()
 
+	def onabout( self, event ):
+			event.Skip()
+
+	def onexit( self, event ):
+		event.Skip()

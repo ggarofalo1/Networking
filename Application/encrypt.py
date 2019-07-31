@@ -299,7 +299,18 @@ def blockcipheren(key, plaintext):
     :param key: Takes in a string for password to be used to encrypt the plaintext
     :param plaintext: takes in a string of chars to be encrypted
     """
-    ciphertext = ""
+    ciphertext = plaintext
+
+    return ciphertext
+
+
+def blockcipherde(key, plaintext):
+    """
+    :return ciphertext: Encrypted text for block cipher
+    :param key: Takes in a string for password to be used to encrypt the plaintext
+    :param plaintext: takes in a string of chars to be encrypted
+    """
+    ciphertext = plaintext
 
     return ciphertext
 
@@ -310,9 +321,21 @@ def streamcipheren(key, plaintext):
     :param key: Takes in a string for password to be used to encrypt the plaintext
     :param plaintext: takes in a string of chars to be encrypted
     """
-    ciphertext = ""
+    ciphertext = plaintext
 
     return ciphertext
+
+
+def streamcipherde(key, plaintext):
+    """
+    :return ciphertext: Encrypted text for stream cipher
+    :param key: Takes in a string for password to be used to encrypt the plaintext
+    :param plaintext: takes in a string of chars to be encrypted
+    """
+    ciphertext = plaintext
+
+    return ciphertext
+
 
 def cipherchoiceen(cipher5, input1, key):
         if cipher5 == 0:
@@ -330,10 +353,10 @@ def cipherchoiceen(cipher5, input1, key):
             return polyalphabeticen(key, input1)
         elif cipher5 == 4:
             print("Block Encrypt")
-            return input1
+            return blockcipheren(key, input1)
         elif cipher5 == 5:
             print("Stream Encrypt")
-            return input1
+            return streamcipheren(key, input1)
 
 def cipherchoicede(cipher5, input1, key):
         if cipher5 == 0:
@@ -351,8 +374,8 @@ def cipherchoicede(cipher5, input1, key):
             return polyalphabeticde(key, input1)
         elif cipher5 == 4:
             print("Block Decrypt")
-            return input1
+            return blockcipherde(key, input1)
         elif cipher5 == 5:
             print("Stream Decrypt")
-            return input1
+            return streamcipherde(key, input1)
 
