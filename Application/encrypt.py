@@ -423,22 +423,38 @@ def cipherchoicede(cipher5, input1, key):
             print("Vigenere Decrypt")
             return vigenerecipherde(key, input1)
 
-def RSAKeyGen(switch, p, q):
+def RSAKeyGen(switch, p, q, timeout = -1):
     if(switch == 1):
         e = 3
+        check5 = True
         # Given e = 3 find Public and Private
-        p, q =RSA_utils.findpq(e, p, q)
-        z= (p-1)*(q-1)
-        n= p*q
-        print("Z: %s N: %s" % (str(z), str(n)))
-        d= RSA_utils.findd(e, z)
+        while(check5):
+            p, q =RSA_utils.findpq(e, p, q)
+            z= (p-1)*(q-1)
+            n= p*q
+            print("Z: %s N: %s" % (str(z), str(n)))
+            d= RSA_utils.findd(e, z, timeout)
+            if(d == -1):
+                print("D Timed out")
+            else:
+                check5 = False
+            print("E: %s D: %s" % (str(e), str(d)))
+            print("==============")
     elif(switch == 2):
         e = 65537
         # Given e = 65537 find Public and Private
-        p, q =RSA_utils.findpq(e, p, q)
-        z= (p-1)*(q-1)
-        n= p*q
-        d= RSA_utils.findd(e, z)
+        while(check5):
+            p, q =RSA_utils.findpq(e, p, q)
+            z= (p-1)*(q-1)
+            n= p*q
+            print("Z: %s N: %s" % (str(z), str(n)))
+            d= RSA_utils.findd(e, z, timeout)
+            if(d == -1):
+                print("D Timed out")
+            else:
+                check5 = False
+            print("E: %s D: %s" % (str(e), str(d)))
+            print("==============")
     elif(switch == 3):
         # Given set of the largest primes p and q find Public and Private
         p= (pow(2, 82589933) -1)
@@ -446,7 +462,9 @@ def RSAKeyGen(switch, p, q):
         n = p*q
         z= (p-1)*(q-1)
         e= RSA_utils.finde(z)
-        d= RSA_utils.findd(e, z)
+        d= RSA_utils.findd(e, z, timeout)
+        if(d == -1):
+                print("D Timed out")
     elif(switch == 4):
         # Given set of the 160 digit primes p and q find Public and Private
         p= 5166566839092074458466334866571597694114460570387986357538048450432901440804868689337999823161841839689242893622491638917313351308387294478994745350551549126803
@@ -454,7 +472,9 @@ def RSAKeyGen(switch, p, q):
         n = p*q
         z= (p-1)*(q-1)
         e= RSA_utils.finde(z)
-        d= RSA_utils.findd(e, z)
+        d= RSA_utils.findd(e, z, timeout)
+        if(d == -1):
+                print("D Timed out")
     elif(switch == 5):
         # Given set of 10 digit primes p and q find Public and Private
         p= 5915587277
@@ -462,7 +482,9 @@ def RSAKeyGen(switch, p, q):
         n = p*q
         z= (p-1)*(q-1)
         e= RSA_utils.finde(z)
-        d= RSA_utils.findd(e, z)
+        d= RSA_utils.findd(e, z, timeout)
+        if(d == -1):
+                print("D Timed out")
     elif(switch == 6):
         n = 236303269
         e = 3
@@ -472,7 +494,9 @@ def RSAKeyGen(switch, p, q):
         n = p*q
         z= (p-1)*(q-1)
         e= RSA_utils.finde(z)
-        d= RSA_utils.findd(e, z)
+        d= RSA_utils.findd(e, z, timeout)
+        if(d == -1):
+                print("D Timed out")
 
     publickey = (n, e)
     privatekey = (n, d)
@@ -481,7 +505,7 @@ def RSAKeyGen(switch, p, q):
 
 def RSAen(pk, plaintext):
     n, e = pk
-    ciphertext = [(ord(char) ** e) % n for char in plaintext]
+    ciphertext = [pow(ord(char), e, n) for char in plaintext]
     cipher = ''.join(map(lambda x: str(str(x)+ " "), ciphertext))
     return cipher
 
@@ -491,12 +515,16 @@ def RSAde(pk, ciphertext):
     cipher = ciphertext.split(" ")
     cipher.pop()
     print("Decrypting... This could take a while...")
-    plaintext = [chr(pow(int(char), d) % n) for char in cipher]
+    plaintext = [chr(pow(int(char), d, n)) for char in cipher]
     return ''.join(plaintext)
 
 
 class RSA_utils:
-    def findd(e, z):
+    def findd(e, z, time= -1):
+        if time == -1:
+            timeout = False
+        else:
+            time = 100000000 * time
         check2 = True
         d = 0
         while(check2):
@@ -505,6 +533,9 @@ class RSA_utils:
                 print(str(d))
             if((e*d) % z == 1):
                 check2 = False
+            if(d %time== 0 and timeout):
+                d = -1
+                break
         return d
 
 
@@ -572,8 +603,9 @@ class RSA_utils:
 if __name__ == '__main__':
     # Test encrypt cases
     # publickey, privatekey = RSAKeyGen(1, 1000, 9000)
-    publickey = (236303269, 3)
-    privatekey = (236303269, 157514867)
+    #publickey = (236303269, 3)
+    #privatekey = (236303269, 157514867)
+    publickey, privatekey = RSAKeyGen(1, 100000, 1000000, -1)
     print("==============")
     print("Public: "+str(publickey))
     print("Private: "+str(privatekey))
@@ -583,5 +615,4 @@ if __name__ == '__main__':
     out = RSAen(publickey, input1)
     print("En: " + out)
     out = RSAde(privatekey, out)
-    print("After De")
     print("De: " + out)
