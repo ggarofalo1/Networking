@@ -44,7 +44,10 @@ class MainFrame ( wx.Frame ):
 
 		page1sizer.Add( self.TitleName, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
-		ChooseCipherChoices = [ u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Caesar Cipher Decrypt", u"Monoalphabetic Encrypt", u"Monoalphabetic Decrypt", u"Polyalphabetic Encrypt", u"Polyalphabetic Decrypt", u"Block Cipher Encrypt", u"Block Cipher Decrypt", u"Stream Cipher Encrypt", u"Stream Cipher Decrypt", u"Caesar Brute Force", u"Custom Encrypt", u"Custom Decrypt" ]
+		ChooseCipherChoices = [ u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Caesar Cipher Decrypt", u"Monoalphabetic Encrypt",
+								u"Monoalphabetic Decrypt", u"Polyalphabetic Encrypt", u"Polyalphabetic Decrypt", u"Block Cipher Encrypt",
+								u"Block Cipher Decrypt", u"Stream Cipher Encrypt", u"Stream Cipher Decrypt", u"Caesar Brute Force",
+								u"Custom Encrypt", u"Custom Decrypt", u"Vigenere Encrypt", u"Vigenere Decrypt"]
 		self.ChooseCipher = wx.Choice( self.Main, wx.ID_ANY, wx.Point( 0,1 ), wx.DefaultSize, ChooseCipherChoices, 0 )
 		self.ChooseCipher.SetSelection( 0 )
 		page1sizer.Add( self.ChooseCipher, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
@@ -122,7 +125,8 @@ class MainFrame ( wx.Frame ):
 		self.titlecipher1.Wrap( -1 )
 		fgSizer2.Add( self.titlecipher1, 0, wx.ALL, 10 )
 
-		cipher1Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt", u"Block Cipher Encrypt", u"Stream Cipher Encrypt"]
+		cipher1Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt",
+						  u"Block Cipher Encrypt", u"Stream Cipher Encrypt", u"Vigenere Encrypt"]
 		self.cipher1 = wx.Choice( self.Custom, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, cipher1Choices, 0 )
 		self.cipher1.SetSelection( 0 )
 		fgSizer2.Add( self.cipher1, 0, wx.ALL, 10 )
@@ -138,7 +142,8 @@ class MainFrame ( wx.Frame ):
 		self.titlecipher2.Wrap( -1 )
 		fgSizer2.Add( self.titlecipher2, 0, wx.ALL, 10 )
 
-		cipher2Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt", u"Block Cipher Encrypt", u"Stream Cipher Encrypt"]
+		cipher2Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt",
+						  u"Block Cipher Encrypt", u"Stream Cipher Encrypt", u"Vigenere Encrypt"]
 		self.cipher2 = wx.Choice( self.Custom, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, cipher2Choices, 0 )
 		self.cipher2.SetSelection( 0 )
 		fgSizer2.Add( self.cipher2, 0, wx.ALL, 10 )
@@ -154,7 +159,8 @@ class MainFrame ( wx.Frame ):
 		self.titlecipher3.Wrap( -1 )
 		fgSizer2.Add( self.titlecipher3, 0, wx.ALL, 10 )
 
-		cipher3Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt", u"Block Cipher Encrypt", u"Stream Cipher Encrypt"]
+		cipher3Choices = [u"Choose A Cipher", u"Caesar Cipher Encrypt", u"Monoalphabetic Encrypt", u"Polyalphabetic Encrypt",
+						  u"Block Cipher Encrypt", u"Stream Cipher Encrypt", u"Vigenere Encrypt"]
 		self.cipher3 = wx.Choice( self.Custom, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, cipher3Choices, 0 )
 		self.cipher3.SetSelection( 0 )
 		fgSizer2.Add( self.cipher3, 0, wx.ALL, 10 )

@@ -11,9 +11,14 @@ Icon made by https://www.flaticon.com/authors/smashicons from www.flaticon.com
 # For a Python -> .exe file
 # For installer might use NSIS or Inno Setup
 
-#from Application import encrypt as cryp
-#from Application import CryptoGramGui
-# when Running in edittor use ^ else use \/
+##############  TO DO:  #################
+#                                       #
+#  Fix decrypt spits out ~ for \n       #
+#  Add Block Cipher                     #
+#  Add Stream Cipher                    #
+#                                       #
+#########################################
+
 import encrypt as cryp
 import CryptoGramGui
 
@@ -264,6 +269,29 @@ class AppGui(CryptoGramGui.MainFrame):
                 file.close()
             self.output.SetValue(str(output3))
 
+        elif cipher == 14:
+            print("Vigenere Encrypt")
+            output1 = cryp.vigenerecipheren(key, input)
+            if(save):
+                filename = self.savetext.GetValue()
+                file = io.open("results/"+filename, "a+", encoding="utf-8")
+                file.write("\n======New Output======\n")
+                file.write("=====Vigenere Encrypt=====\n")
+                file.write(output1)
+                file.close()
+            self.output.SetValue(str(output1))
+
+        elif cipher == 15:
+            print("Vigenere Decrypt")
+            output1 = cryp.vigenerecipherde(key, input)
+            if(save):
+                filename = self.savetext.GetValue()
+                file = io.open("results/"+filename, "a+", encoding="utf-8")
+                file.write("\n======New Output======\n")
+                file.write("=====Vigenere Decrypt=====\n")
+                file.write(output1)
+                file.close()
+            self.output.SetValue(str(output1))
         else:
             print("Invalid Choice")
 
